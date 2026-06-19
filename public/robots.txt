@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# AI crawlers — allow full access for indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://www.eventplannerjodhpur.com/sitemap.xml
