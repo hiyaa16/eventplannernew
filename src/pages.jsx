@@ -288,8 +288,8 @@ export function EventManagementPage() {
       </section>
       <div className="sp-zigzag">
         <div className="sp-zz-row reveal">
-          <div className="sp-zz-visual" style={{ background: 'linear-gradient(145deg, #0C0C0C 0%, #161616 55%, #1E1E1E 100%)' }}>
-            <span className="sp-zz-numeral">I</span>
+          <div className="sp-zz-visual" style={{ padding: 0, overflow: 'hidden' }}>
+            <img src={guestImg} alt="Comprehensive Planning" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <div className="sp-zz-body">
             <span className="eyebrow no-line">Service 01</span>
@@ -299,7 +299,7 @@ export function EventManagementPage() {
         </div>
         <div className="sp-zz-row sp-zz-row-rev reveal stagger-1">
           <div className="sp-zz-visual" style={{ padding: 0, overflow: 'hidden' }}>
-            <img src={guestImg} alt="Guest Management" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src={helpdeskImg} alt="Guest Management" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <div className="sp-zz-body">
             <span className="eyebrow no-line">Service 02</span>
