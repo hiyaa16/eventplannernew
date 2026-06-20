@@ -401,11 +401,16 @@
 .hue-email     .img-placeholder { background: linear-gradient(160deg, #D4B97A 0%, #2E0F14 100%); color: #FAE6D0; }
 
 /* social horizontal scroll section — reuses hcat-card styles */
+.social-hcat-outer {
+  position: relative;
+  /* height set by JS to travel distance + 1vh */
+}
 .social-hcat {
+  position: sticky;
+  top: 0;
   height: 100vh;
   background: linear-gradient(135deg, #2E0F14 0%, #6B1F2B 50%, #8B1515 100%);
   overflow: hidden;
-  position: relative;
 }
 .social-track {
   display: flex;
@@ -430,13 +435,15 @@
 .social-hcard .hcat-body h3 { font-size: 26px; }
 
 @media (max-width: 900px) {
-  .social-hcat { height: 100vh; height: 100dvh; padding: 0; }
+  /* Mobile: GSAP sticky — same as desktop, section sticks while cards scroll past */
+  .social-hcat {
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+  }
   .social-track {
-    flex-direction: row;
     padding: 0 20px;
     gap: 16px;
-    align-items: center;
-    height: 100%;
   }
   .social-hcard { flex: 0 0 300px; height: 64vh; height: 64dvh; }
   .social-hcard .hcat-body h3 { font-size: 20px; }

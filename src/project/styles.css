@@ -1225,9 +1225,20 @@ section { position: relative; }
 }
 
 /* ---------- testimonials ---------- */
-.testimonials {
-  padding: 80px 0;
+/* tall outer: provides scroll room so social section doesn't overlap */
+.t-outer {
   position: relative;
+  /* height set by JS to (2000 + vh)px */
+}
+
+.testimonials {
+  position: sticky;
+  top: 0;
+  padding: 80px 0;
+  min-height: 100vh;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
 }
 .t-mark {
   font-family: var(--serif);

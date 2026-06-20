@@ -13,10 +13,16 @@
   .ss-mob-only  { display: block; }
 }
 
+/* ── DESKTOP: tall outer provides scroll room; inner sticks ── */
+.ss-desk-outer {
+  position: relative;
+  height: 500vh;    /* overridden by JS to (4000 + vh)px */
+}
+
 /* ── Mobile outer: JS sets exact px height; cream bg fills area below wrap ── */
 .ss-mob-outer {
   position: relative;
-  height: calc(300vh + 65vh + 128px);
+  height: 400vh;        /* JS overrides this; fallback = ANIM_SCROLL(300vh) + WRAP_H(100vh) */
   background: var(--cream);
 }
 
@@ -24,9 +30,10 @@
 /* ── DESKTOP styles ── */
 
 .ss-stage {
+  position: sticky;
+  top: 0;
   height: 100vh;
   background: var(--cream);
-  position: relative;
   overflow: hidden;
 }
 
@@ -127,14 +134,13 @@
 /* ── MOBILE styles ── */
 
 .ss-wrap {
-  position: absolute;   /* JS switches to fixed while section is active */
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(65vh + 128px);  /* heading(108px) + image(65vh) + gap(20px) */
+  height: 100vh;
   background: var(--cream);
   overflow: hidden;
-  z-index: 50;
 }
 
 /* "OUR SERVICES" heading at the top */

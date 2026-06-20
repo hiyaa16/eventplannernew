@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useReveal } from './project/navbar.jsx'
 import { Inquiry } from './project/contact.jsx'
+import helpdeskImg from './assets/helpdesk.png'
+import guestImg from './assets/guest.png'
 import jitendraImg from './assets/jitendra.jpeg'
 import gulsherImg  from './assets/gulsher5.jpg'
 import trendImg from './assets/trend.png'
@@ -296,8 +298,8 @@ export function EventManagementPage() {
           </div>
         </div>
         <div className="sp-zz-row sp-zz-row-rev reveal stagger-1">
-          <div className="sp-zz-visual" style={{ background: 'linear-gradient(145deg, #130304 0%, #200B0E 55%, #2E1018 100%)' }}>
-            <span className="sp-zz-numeral">II</span>
+          <div className="sp-zz-visual" style={{ padding: 0, overflow: 'hidden' }}>
+            <img src={guestImg} alt="Guest Management" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <div className="sp-zz-body">
             <span className="eyebrow no-line">Service 02</span>

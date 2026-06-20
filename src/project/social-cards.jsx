@@ -119,71 +119,92 @@ function SocialCard({ s, index }) {
 }
 
 export function SocialSection() {
-  const ref = useRef(null)
+  const outerRef = useRef(null)   // tall scroll container
+  const innerRef = useRef(null)   // sticky 100vh section
 
   useEffect(() => {
-    const root = ref.current
-    if (!root) return
+    const outer = outerRef.current
+    const inner = innerRef.current
+    if (!outer || !inner) return
 
-    const track = root.querySelector('.social-track')
+    const track = inner.querySelector('.social-track')
     if (!track) return
 
     const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
 
-    const tween = gsap.to(track, {
-      x: () => -compute(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: root,
-        start: 'top top',
-        end: () => '+=' + (compute() + 200),
-        pin: true,
-        scrub: 0.6,
-        invalidateOnRefresh: true,
-      },
+    // Outer height = horizontal travel distance + extra + one viewport to keep section visible
+    const setHeight = () => {
+      outer.style.height = (compute() + 200 + window.innerHeight) + 'px'
+    }
+    setHeight()
+
+    const raf = requestAnimationFrame(() => {
+      const tween = gsap.to(track, {
+        x: () => -compute(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: outer,               // tall outer drives the scrub
+          start: 'top top',
+          end: () => '+=' + (compute() + 200),
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      const cards = gsap.utils.toArray(inner.querySelectorAll('.social-hcard'))
+      const update = () => {
+        const center = window.innerWidth / 2
+        cards.forEach((card) => {
+          const r = card.getBoundingClientRect()
+          const cx = r.left + r.width / 2
+          const dist = Math.abs(cx - center)
+          const k = Math.max(0, 1 - dist / (window.innerWidth * 0.7))
+          card.style.transform = `scale(${0.86 + k * 0.14})`
+          card.style.opacity = String(0.55 + k * 0.45)
+        })
+      }
+      gsap.ticker.add(update)
+      update()
+
+      ScrollTrigger.refresh()
+
+      // Store cleanup refs on outer element for use in return
+      outer._cleanup = () => {
+        gsap.ticker.remove(update)
+        tween.scrollTrigger && tween.scrollTrigger.kill()
+        tween.kill()
+        outer.style.height = ''
+      }
     })
 
-    const cards = gsap.utils.toArray(root.querySelectorAll('.social-hcard'))
-    const update = () => {
-      const center = window.innerWidth / 2
-      cards.forEach((card) => {
-        const r = card.getBoundingClientRect()
-        const cx = r.left + r.width / 2
-        const dist = Math.abs(cx - center)
-        const k = Math.max(0, 1 - dist / (window.innerWidth * 0.7))
-        card.style.transform = `scale(${0.86 + k * 0.14})`
-        card.style.opacity = 0.55 + k * 0.45
-      })
-    }
-    gsap.ticker.add(update)
-    update()
-
     return () => {
-      gsap.ticker.remove(update)
-      tween.scrollTrigger && tween.scrollTrigger.kill()
-      tween.kill()
+      cancelAnimationFrame(raf)
+      outer._cleanup?.()
     }
   }, [])
 
   return (
-    <section className="social-hcat" ref={ref}>
-      <div className="social-track">
-        <div className="hcat-intro">
-          <span className="eyebrow">Connect with us</span>
-          <h2 className="hcat-title">
-            Follow our<br/><span className="ital">journey.</span>
-          </h2>
-          <p>Find us across every platform — scroll to explore.</p>
-        </div>
+    // Tall outer container provides scroll space — no GSAP pin needed
+    <div ref={outerRef} className="social-hcat-outer">
+      <section ref={innerRef} className="social-hcat">
+        <div className="social-track">
+          <div className="hcat-intro">
+            <span className="eyebrow">Connect with us</span>
+            <h2 className="hcat-title">
+              Follow our<br/><span className="ital">journey.</span>
+            </h2>
+            <p>Find us across every platform — scroll to explore.</p>
+          </div>
 
-        {SOCIAL.map((s, i) => (
-          <SocialCard key={s.id} s={s} index={i} />
-        ))}
+          {SOCIAL.map((s, i) => (
+            <SocialCard key={s.id} s={s} index={i} />
+          ))}
 
-        <div className="hcat-tail">
-          <span className="eyebrow">Stay connected</span>
+          <div className="hcat-tail">
+            <span className="eyebrow">Stay connected</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }

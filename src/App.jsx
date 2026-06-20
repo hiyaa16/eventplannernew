@@ -531,11 +531,11 @@ return(
 
 <Services/>
 
+<Testimonials/>
+
 <SocialSection/>
 
 <Portfolio/>
-
-<Testimonials/>
 
 <Inquiry/>
 

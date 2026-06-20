@@ -29,7 +29,7 @@ export function Hero() {
 
       <div className="container">
         <div className="hero-eyebrow-row">
-          <span className="eyebrow">Wedding &amp; Event Planning</span>
+          <span className="eyebrow no-line">Wedding &amp; Event Planning</span>
         </div>
 
       </div>
