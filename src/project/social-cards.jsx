@@ -1,9 +1,14 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import igimg from '../assets/insta.png'
 import fbimg from '../assets/fb.png'
 import ytimg from '../assets/yt.png'
 import inimg from '../assets/linkedin.png'
 import googleimg from '../assets/google.png'
 import pinimg from '../assets/pin.png'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const SOCIAL = [
   {
@@ -72,8 +77,7 @@ function SocialCard({ s, index }) {
   return (
     <a
       href={s.href}
-      className={'social-hcard reveal ' + s.hue}
-      style={{ transitionDelay: (index % 3) * 0.08 + 's' }}
+      className={'social-hcard ' + s.hue}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -91,23 +95,73 @@ function SocialCard({ s, index }) {
 }
 
 export function SocialSection() {
-  return (
-    <section className="social-hcat">
-      <div className="container">
-        <div className="hcat-intro reveal">
-          <span className="eyebrow">Connect with us</span>
-          <h2 className="hcat-title">
-            Follow our<br/><span className="ital">journey.</span>
-          </h2>
-          <p>Find us across every platform.</p>
-        </div>
+  const outerRef = useRef(null)
+  const innerRef = useRef(null)
 
-        <div className="social-grid">
+  useEffect(() => {
+    const outer = outerRef.current
+    const inner = innerRef.current
+    if (!outer || !inner || window.innerWidth <= 900) return
+
+    const track = inner.querySelector('.social-track')
+    if (!track) return
+
+    const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
+
+    const setHeight = () => {
+      outer.style.height = (compute() + 200 + window.innerHeight) + 'px'
+    }
+    setHeight()
+
+    const raf = requestAnimationFrame(() => {
+      const tween = gsap.to(track, {
+        x: () => -compute(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: outer,
+          start: 'top top',
+          end: () => '+=' + (compute() + 200),
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      ScrollTrigger.refresh()
+
+      outer._cleanup = () => {
+        tween.scrollTrigger && tween.scrollTrigger.kill()
+        tween.kill()
+        outer.style.height = ''
+      }
+    })
+
+    return () => {
+      cancelAnimationFrame(raf)
+      outer._cleanup?.()
+    }
+  }, [])
+
+  return (
+    <div ref={outerRef} className="social-hcat-outer">
+      <section ref={innerRef} className="social-hcat">
+        <div className="social-track">
+          <div className="hcat-intro">
+            <span className="eyebrow">Connect with us</span>
+            <h2 className="hcat-title">
+              Follow our<br/><span className="ital">journey.</span>
+            </h2>
+            <p>Find us across every platform — scroll to explore.</p>
+          </div>
+
           {SOCIAL.map((s, i) => (
             <SocialCard key={s.id} s={s} index={i} />
           ))}
+
+          <div className="hcat-tail">
+            <span className="eyebrow">Stay connected</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }
