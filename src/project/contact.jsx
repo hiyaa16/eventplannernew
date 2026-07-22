@@ -120,11 +120,15 @@ export function Inquiry() {
 
   const validate = () => {
     const e = {}
-    if (form.first.trim().length < 2)  e.first  = 'Enter your name (min 2 characters)'
-    if (form.last.trim().length < 2)   e.last   = "Enter your partner's name (min 2 characters)"
+    if (form.first.trim().length < 2)  e.first  = "Enter the bride's name (min 2 characters)"
+    if (form.last.trim().length < 2)   e.last   = "Enter the groom's name (min 2 characters)"
     if (!EMAIL_RE.test(form.email))    e.email  = 'Enter a valid email address'
-    if (form.phoneCode === 'other' && !form.phoneCodeCustom.trim()) e.phoneCodeCustom = 'Enter your country code (e.g. +123)'
-    if (form.phone.replace(/\D/g, '').length < 10) e.phone = 'Enter a valid phone number'
+    if (form.phoneCode === 'other') {
+      if (!form.phoneCodeCustom.trim())            e.phoneCodeCustom = 'Enter your country code (e.g. +123)'
+      else if (!/^\+?\d{1,4}$/.test(form.phoneCodeCustom.trim())) e.phoneCodeCustom = 'Country code must be digits only (e.g. +123)'
+    }
+    const digits = form.phone.replace(/\D/g, '')
+    if (digits.length < 7 || digits.length > 15) e.phone = 'Enter a valid phone number (7–15 digits)'
     if (!form.date)                    e.date   = 'Select your event date'
     if (!form.count.trim())            e.count  = 'Enter approximate guest count'
     if (!form.where)                   e.where  = 'Select a preferred location'
@@ -231,14 +235,14 @@ export function Inquiry() {
               <form className="form-grid reveal" onSubmit={submit} noValidate>
 
                 <div className={'field' + (errs.first ? ' field-error' : '')} data-field="first">
-                  <label>Your name <span className="req">*</span></label>
-                  <input type="text" placeholder="Rahul" value={form.first} onChange={e => set('first', e.target.value)} />
+                  <label>Bride's name <span className="req">*</span></label>
+                  <input type="text" placeholder="Ananya" value={form.first} onChange={e => set('first', e.target.value)} />
                   {errs.first && <span className="field-err-msg">{errs.first}</span>}
                 </div>
 
                 <div className={'field' + (errs.last ? ' field-error' : '')} data-field="last">
-                  <label>Partner's name <span className="req">*</span></label>
-                  <input type="text" placeholder="Ananya" value={form.last} onChange={e => set('last', e.target.value)} />
+                  <label>Groom's name <span className="req">*</span></label>
+                  <input type="text" placeholder="Rahul" value={form.last} onChange={e => set('last', e.target.value)} />
                   {errs.last && <span className="field-err-msg">{errs.last}</span>}
                 </div>
 
@@ -263,17 +267,26 @@ export function Inquiry() {
                     {form.phoneCode === 'other' && (
                       <input
                         type="text"
+                        inputMode="numeric"
                         placeholder="+123"
                         value={form.phoneCodeCustom}
-                        onChange={e => set('phoneCodeCustom', e.target.value)}
+                        onChange={e => {
+                          // allow a leading + and digits only
+                          let v = e.target.value.replace(/[^\d+]/g, '')
+                          v = '+' + v.replace(/\+/g, '')
+                          set('phoneCodeCustom', v)
+                        }}
+                        maxLength={5}
                         className="phone-code-custom-input"
                       />
                     )}
                     <input
                       type="tel"
+                      inputMode="numeric"
                       placeholder="98765 43210"
                       value={form.phone}
-                      onChange={e => set('phone', e.target.value)}
+                      onChange={e => set('phone', e.target.value.replace(/[^\d\s]/g, ''))}
+                      maxLength={18}
                       className="phone-input"
                     />
                   </div>

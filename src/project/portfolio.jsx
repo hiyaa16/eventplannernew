@@ -33,12 +33,12 @@ export function Portfolio() {
         </div>
         <div className="portfolio-stats">
           <div className="stat reveal">
-            <div className="num"><Counter to={500} /></div>
-            <div className="label">+ Events Executed</div>
+            <div className="num"><Counter to={500} suffix="+" /></div>
+            <div className="label">Events Executed</div>
           </div>
           <div className="stat reveal stagger-1">
-            <div className="num"><Counter to={10} /></div>
-            <div className="label">+ Destination Venues</div>
+            <div className="num"><Counter to={65} suffix="+" /></div>
+            <div className="label">Destination Venues</div>
           </div>
           <div className="stat reveal stagger-2">
             <div className="num"><Counter to={14} suffix="" /><span className="ital"> yrs</span></div>

@@ -428,6 +428,8 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
 }
 .social-hcard:hover { transform: translateY(-4px); }
 .social-hcard .hcat-img {
