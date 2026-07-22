@@ -13,6 +13,7 @@ import udaipurImg from './assets/udaipur.jpg'
 import jaipurImg from './assets/jaipur.jpg'
 import jaisalmerImg from './assets/jaisalmer.jpg'
 import pushkarImg from './assets/pushkar.jpg'
+import mountabuImg from './assets/abu.jpg'
 import c1Img from './assets/c1.jpg'
 import c2Img from './assets/c2.jpg'
 import c3Img from './assets/c3.jpg'
@@ -961,6 +962,14 @@ const DESTINATIONS = [
     description: 'Serene town offering spiritual ambiance around Pushkar Lake with heritage hotels like Pushkar Palace and Bhanwar Singh Palace for intimate and meaningful celebrations.',
     venues: ['Pushkar Palace', 'Bhanwar Singh Palace', 'The Westin Pushkar', 'Ananta Spa & Resorts'],
     img: pushkarImg,
+  },
+  {
+    id: 'd6',
+    name: 'Mount Abu',
+    subtitle: 'The Hill Retreat',
+    description: "Rajasthan's only hill station, wrapped in the lush greenery of the Aravalli range and cooled by serene lakes. Its gardens, resorts, and lakeside venues make a refreshing, scenic backdrop for celebrations away from the desert heat.",
+    venues: ['Nakki Lake Venues', 'Hilltop Resorts', 'Aravalli Garden Estates', 'Lakeside Lawns'],
+    img: mountabuImg,
   },
 ]
 

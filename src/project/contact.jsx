@@ -24,6 +24,7 @@ const RAJASTHAN_LOCATIONS = [
   'Jaipur',
   'Pushkar',
   'Kumbhalgarh',
+  'Mount Abu',
   'Other (please specify)',
 ]
 
