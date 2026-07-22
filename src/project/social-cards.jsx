@@ -11,86 +11,24 @@ import pinimg from '../assets/pin.png'
 gsap.registerPlugin(ScrollTrigger)
 
 const SOCIAL = [
-  {
-    id: 'instagram',
-    platform: 'Instagram',
-    handle: '@event_planner_jdr',
-    href: 'https://www.instagram.com/event_planner_jdr/',
-    subtitle: 'Latest Reels & Posts',
-    tag: 'Follow for daily inspiration',
-    hue: 'hue-instagram',
-    img: igimg,
-  },
-  {
-    id: 'pinterest',
-    platform: 'Pinterest',
-    handle: 'Event Planner Wedding',
-    href: 'https://in.pinterest.com/Event_Planner_Jodhpur/',
-    subtitle: 'Ideas & Inspirations',
-    tag: 'Explore our Pinterest',
-    hue: 'hue-pinterest',
-    img: pinimg,
-  },
-  {
-    id: 'google',
-    platform: 'Google',
-    handle: 'Event Planner Jodhpur',
-    href: 'https://www.google.com/search?client=ms-android-vivo-rev1&cds=2&cs=0&hl=en-US&v=11.26.7.21.arm64&output=search&q=Event+Planner+(+Destination+wedding+planner)&ludocid=14085464485539381043&lsig=AB86z5VA8CkBGzmtSRZ_9yo93Sfk&kgs=614dd1414433bfff&shndl=-1&source=sh/x/kp/local&entrypoint=sh/x/kp/local',
-    subtitle: 'Reviews & Business Profile',
-    tag: 'View us on Google',
-    hue: 'hue-google',
-    img: googleimg,
-  },
-  {
-    id: 'youtube',
-    platform: 'YouTube',
-    handle: 'Event Planner Jodhpur',
-    href: 'https://youtube.com/shorts/j5FBqfKy5gM?si=YZhgHPelm0bMidIz',
-    subtitle: 'Wedding Films & Highlights',
-    tag: 'Watch our event reels',
-    hue: 'hue-youtube',
-    img: ytimg,
-  },
-  {
-    id: 'facebook',
-    platform: 'Facebook',
-    handle: 'Event Planner Wedding',
-    href: 'https://www.facebook.com/reel/2848472995507899/',
-    subtitle: 'Community & Updates',
-    tag: 'Watch on Facebook',
-    hue: 'hue-facebook',
-    img: fbimg,
-  },
-  {
-    id: 'linkedin',
-    platform: 'LinkedIn',
-    handle: 'Event Planner',
-    href: 'https://www.linkedin.com/posts/event-plannerjdr123_eventplanner-eventmanagement-wedding-ugcPost-7345434916865699840-eTC6/',
-    subtitle: 'Corporate & Professional',
-    tag: 'Connect with us',
-    hue: 'hue-linkedin',
-    img: inimg,
-  },
+  { id: 'instagram', platform: 'Instagram', hue: 'hue-instagram', img: igimg },
+  { id: 'google', platform: 'Google', hue: 'hue-google', img: googleimg },
+  { id: 'youtube', platform: 'YouTube', hue: 'hue-youtube', img: ytimg },
+  { id: 'facebook', platform: 'Facebook', hue: 'hue-facebook', img: fbimg },
+  { id: 'pinterest', platform: 'Pinterest', hue: 'hue-pinterest', img: pinimg },
+  { id: 'linkedin', platform: 'LinkedIn', hue: 'hue-linkedin', img: inimg },
 ]
 
-function SocialCard({ s, index }) {
+function SocialCard({ s }) {
   return (
-    <a
-      href={s.href}
-      className={'social-hcard ' + s.hue}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="hcat-num">{String(index + 1).padStart(2, '0')}</div>
+    <div className={'social-hcard ' + s.hue}>
       <div className="hcat-img">
         <img src={s.img} alt={s.platform} loading="lazy" />
       </div>
       <div className="hcat-body">
-        <span className="hcat-sub">{s.subtitle}</span>
         <h3>{s.platform}</h3>
-        <p>{s.tag}</p>
       </div>
-    </a>
+    </div>
   )
 }
 
@@ -153,8 +91,8 @@ export function SocialSection() {
             <p>Find us across every platform — scroll to explore.</p>
           </div>
 
-          {SOCIAL.map((s, i) => (
-            <SocialCard key={s.id} s={s} index={i} />
+          {SOCIAL.map((s) => (
+            <SocialCard key={s.id} s={s} />
           ))}
 
           <div className="hcat-tail">
