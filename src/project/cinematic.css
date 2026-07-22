@@ -400,13 +400,10 @@
 .hue-website   .img-placeholder { background: linear-gradient(160deg, #C25A6A 0%, #2E0F14 100%); color: #FAE6D0; }
 .hue-email     .img-placeholder { background: linear-gradient(160deg, #D4B97A 0%, #2E0F14 100%); color: #FAE6D0; }
 
-/* social section — desktop: scroll-jack horizontal scroll, mobile: swipeable row */
-.social-hcat-outer {
-  position: relative;
-}
+/* social section — horizontal scroll-jack driven entirely by GSAP's
+   ScrollTrigger pin (not CSS position:sticky) so pinning stays correct
+   scrolling in either direction, including fast scroll-up. */
 .social-hcat {
-  position: sticky;
-  top: 0;
   height: 100vh;
   background: linear-gradient(135deg, #2E0F14 0%, #6B1F2B 50%, #8B1515 100%);
   overflow: hidden;

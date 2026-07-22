@@ -33,73 +33,63 @@ function SocialCard({ s }) {
 }
 
 export function SocialSection() {
-  const outerRef = useRef(null)
-  const innerRef = useRef(null)
+  const sectionRef = useRef(null)
 
   useEffect(() => {
-    const outer = outerRef.current
-    const inner = innerRef.current
-    if (!outer || !inner) return
+    const section = sectionRef.current
+    if (!section) return
 
-    const track = inner.querySelector('.social-track')
+    const track = section.querySelector('.social-track')
     if (!track) return
 
     const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 40)
 
-    const setHeight = () => {
-      outer.style.height = (compute() + 200 + window.innerHeight) + 'px'
-    }
-    setHeight()
-
+    let ctx
     const raf = requestAnimationFrame(() => {
-      const tween = gsap.to(track, {
-        x: () => -compute(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: outer,
-          start: 'top top',
-          end: () => '+=' + (compute() + 200),
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      })
+      ctx = gsap.context(() => {
+        gsap.to(track, {
+          x: () => -compute(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: () => '+=' + (compute() + 200),
+            scrub: 0.6,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        })
+      }, section)
 
       ScrollTrigger.refresh()
-
-      outer._cleanup = () => {
-        tween.scrollTrigger && tween.scrollTrigger.kill()
-        tween.kill()
-        outer.style.height = ''
-      }
     })
 
     return () => {
       cancelAnimationFrame(raf)
-      outer._cleanup?.()
+      ctx?.revert()
     }
   }, [])
 
   return (
-    <div ref={outerRef} className="social-hcat-outer">
-      <section ref={innerRef} className="social-hcat">
-        <div className="social-track">
-          <div className="hcat-intro">
-            <span className="eyebrow">Connect with us</span>
-            <h2 className="hcat-title">
-              Follow our<br/><span className="ital">journey.</span>
-            </h2>
-            <p>Find us across every platform — scroll to explore.</p>
-          </div>
-
-          {SOCIAL.map((s) => (
-            <SocialCard key={s.id} s={s} />
-          ))}
-
-          <div className="hcat-tail">
-            <span className="eyebrow">Stay connected</span>
-          </div>
+    <section ref={sectionRef} className="social-hcat">
+      <div className="social-track">
+        <div className="hcat-intro">
+          <span className="eyebrow">Connect with us</span>
+          <h2 className="hcat-title">
+            Follow our<br/><span className="ital">journey.</span>
+          </h2>
+          <p>Find us across every platform — scroll to explore.</p>
         </div>
-      </section>
-    </div>
+
+        {SOCIAL.map((s) => (
+          <SocialCard key={s.id} s={s} />
+        ))}
+
+        <div className="hcat-tail">
+          <span className="eyebrow">Stay connected</span>
+        </div>
+      </div>
+    </section>
   )
 }
