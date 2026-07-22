@@ -2209,6 +2209,7 @@ section { position: relative; }
   max-width: 52ch;
   margin: 0 auto;
   font-weight: 300;
+  text-align: justify;
 }
 
 /* Row container — adds breathing room */
@@ -2353,6 +2354,7 @@ section { position: relative; }
   color: var(--ink-2);
   max-width: 48ch;
   font-weight: 300;
+  text-align: justify;
 }
 
 /* Closing quote section */

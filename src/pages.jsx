@@ -561,7 +561,7 @@ export function VenueBookingPage() {
             The Perfect <em>Setting.</em>
           </h1>
           <p className="sp-zz-page-intro reveal stagger-2">
-            From heritage palaces to beachfront resorts, we have access to Rajasthan's most stunning venues. Our network spans India's premier wedding destinations, ensuring the perfect backdrop for your celebration.
+            From heritage palaces to desert resorts and lakeside venues, we have access to Rajasthan's most stunning locations. Our network spans India's premier wedding destinations, ensuring the perfect backdrop for your celebration.
           </p>
         </div>
       </section>
