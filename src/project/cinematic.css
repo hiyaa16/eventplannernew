@@ -474,10 +474,12 @@
 }
 .hcat-tail .eyebrow { color: var(--cream); }
 
-/* Mobile: same "many cards in a row" density as desktop — small fixed cards, sized by image aspect-ratio */
+/* Mobile: same "many cards in a row" density as desktop — narrow cards
+   but fixed vh height (like desktop) so they fill the stage vertically
+   instead of leaving empty space above/below */
 @media (max-width: 900px) {
-  .social-hcard { flex: 0 0 130px; height: auto; }
-  .social-hcard .hcat-img { aspect-ratio: 4/5; }
+  .social-hcard { flex: 0 0 130px; height: 58vh; height: 58dvh; }
+  .social-hcard .hcat-img { flex: 1; aspect-ratio: auto; min-height: 0; }
   .social-hcard .hcat-img img { padding: 6px; }
   .social-hcard .hcat-body { padding: 10px; }
   .social-hcard .hcat-body h3 { font-size: 14px; }
@@ -492,7 +494,7 @@
 }
 
 @media (max-width: 375px) {
-  .social-hcard { flex: 0 0 110px; }
+  .social-hcard { flex: 0 0 110px; height: 54vh; height: 54dvh; }
   .social-hcard .hcat-body h3 { font-size: 12px; }
   .hcat-intro { flex: 0 0 150px; }
   .hcat-intro h2 { font-size: clamp(20px, 6vw, 26px); }
