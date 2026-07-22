@@ -683,18 +683,93 @@ export function CorporateEventsPage() {
   )
 }
 
+const GALLERY_IMAGES = [
+  "0E0A6726.jpg", "10_20260615_172518_0009.png", "10_20260626_175831_0009.png", "11_20260617_181138_0010.png",
+  "11_20260701_175754_0010.png", "14_20260331_140623_0013.png", "15_20260602_180013_0014.png",
+  "17_20260708_183113_0016.png", "20260102_120609.jpg", "20_20260421_144628_0016.png",
+  "21_20260423_150311_0016.png", "2_20260423_150310_0000.png", "3_20260421_152542_0000.png",
+  "3_20260613_175530_0002.png", "4_20260325_133842_0003.png", "4_20260421_152542_0001.png",
+  "4_20260425_143335_0002.png", "4_20260613_175530_0003.png", "4_20260615_172517_0003.png",
+  "5_20260612_180937_0003.png", "5_20260613_175530_0004.png", "6_20260605_165104_0005.png",
+  "6_20260611_175856_0005.png", "6_20260612_180937_0004.png", "6_20260708_183113_0005.png",
+  "7_20260324_160614_0006.png", "7_20260421_152542_0002.png", "8_20260610_171200_0007.png",
+  "8_20260626_175831_0007.png", "DSC01049.JPG", "DSC05057.JPG", "IMG-20260514-WA0000.jpg",
+  "IMG_0484.JPG", "IMG_1727_202511111222005.jpg", "IMG_5848_202512071111042.jpg",
+  "IMG_5873_202512071123039.jpg", "IMG_5900_202512071156044.jpg", "IMG_5901_202512071156055.jpg",
+  "IMG_6503.JPG.jpeg", "Montagem de Fotos Casal Branco Bege Preto e Verde_20260512_134316_0001.png",
+  "REX_4465.jpg", "SAML0176.JPG", "SAML0208.JPG", "SAML1546.JPG", "SAML1556.JPG", "SAML1572.JPG",
+  "VIV_5444.jpg", "_DSC9020.JPG", "_DSC9461.JPG", "_DSC9684.JPG",
+]
+
 export function GalleryPage() {
+  useReveal()
+  const [active, setActive] = useState(null)
+
+  useEffect(() => {
+    if (active === null) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setActive(null)
+      if (e.key === 'ArrowRight') setActive(a => (a + 1) % GALLERY_IMAGES.length)
+      if (e.key === 'ArrowLeft') setActive(a => (a - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [active])
+
   return (
     <main>
       <section className="service-page">
-        <div className="container" style={{ textAlign: 'center', padding: '80px 24px' }}>
-          <span className="eyebrow" style={{ justifyContent: 'center', marginBottom: 24 }}>Coming Soon</span>
+        <div className="container" style={{ textAlign: 'center', marginBottom: 48 }}>
+          <span className="eyebrow" style={{ justifyContent: 'center', marginBottom: 24 }}>Our Work</span>
           <h1 className="service-page-title">Gallery</h1>
           <p className="body-l" style={{ maxWidth: '40ch', margin: '0 auto' }}>
-            Our gallery is being curated. Check back soon to explore our portfolio of stunning celebrations.
+            A glimpse into the celebrations we've had the honour of bringing to life.
           </p>
         </div>
+        <div className="container">
+          <div className="gallery-grid">
+            {GALLERY_IMAGES.map((name, i) => (
+              <button
+                key={name}
+                className="gallery-item reveal"
+                style={{ transitionDelay: (i % 6) * 0.06 + 's' }}
+                onClick={() => setActive(i)}
+                aria-label={`Open photo ${i + 1}`}
+              >
+                <img src={encodeURI(`/gallery/${name}`)} alt="" loading="lazy" />
+              </button>
+            ))}
+          </div>
+        </div>
       </section>
+
+      {active !== null && (
+        <div className="gallery-lightbox" onClick={() => setActive(null)}>
+          <button className="gallery-lightbox-close" onClick={() => setActive(null)} aria-label="Close">
+            <svg width="22" height="22" viewBox="0 0 20 20"><path d="M4 4L16 16M16 4L4 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+          </button>
+          <button
+            className="gallery-lightbox-nav gallery-lightbox-prev"
+            onClick={(e) => { e.stopPropagation(); setActive(a => (a - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length) }}
+            aria-label="Previous photo"
+          >
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M11 3L3 11M3 11H9M3 11V5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <img
+            src={encodeURI(`/gallery/${GALLERY_IMAGES[active]}`)}
+            alt=""
+            className="gallery-lightbox-img"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="gallery-lightbox-nav gallery-lightbox-next"
+            onClick={(e) => { e.stopPropagation(); setActive(a => (a + 1) % GALLERY_IMAGES.length) }}
+            aria-label="Next photo"
+          >
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      )}
     </main>
   )
 }
