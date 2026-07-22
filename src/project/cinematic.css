@@ -400,59 +400,57 @@
 .hue-website   .img-placeholder { background: linear-gradient(160deg, #C25A6A 0%, #2E0F14 100%); color: #FAE6D0; }
 .hue-email     .img-placeholder { background: linear-gradient(160deg, #D4B97A 0%, #2E0F14 100%); color: #FAE6D0; }
 
-/* social horizontal scroll section — reuses hcat-card styles */
-.social-hcat-outer {
-  position: relative;
-  /* height set by JS to travel distance + 1vh */
-}
+/* social section — static responsive grid, no scroll-jacking */
 .social-hcat {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  padding: 120px 0;
   background: linear-gradient(135deg, #2E0F14 0%, #6B1F2B 50%, #8B1515 100%);
-  overflow: hidden;
 }
-.social-track {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0 60px;
-  gap: 28px;
-  will-change: transform;
+.social-hcat .hcat-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 64px;
+  padding-right: 0;
+}
+.social-hcat .hcat-intro h2 { margin: 20px auto 16px; }
+.social-hcat .hcat-intro p { margin: 0 auto; }
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
 }
 .social-hcard {
-  flex: 0 0 380px;
-  height: 70vh;
+  position: relative;
   border-radius: 6px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  transition: opacity 0.4s ease;
-  cursor: pointer;
+  transition: transform 0.3s ease;
 }
+.social-hcard:hover { transform: translateY(-4px); }
 .social-hcard .hcat-num { color: rgba(255,255,255,0.6); }
 .social-hcard .hcat-body h3 { font-size: 26px; }
+.social-hcard .hcat-img {
+  aspect-ratio: 4/5;
+  background: var(--cream-2);
+  position: relative;
+}
+.social-hcard .hcat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  display: block;
+}
 
 @media (max-width: 900px) {
-  /* Mobile: GSAP sticky — same as desktop, section sticks while cards scroll past */
-  .social-hcat {
-    height: 100vh;
-    height: 100dvh;
-    padding: 0;
-  }
-  .social-track {
-    padding: 0 20px;
-    gap: 16px;
-  }
-  .social-hcard { flex: 0 0 300px; height: 64vh; height: 64dvh; }
-  .social-hcard .hcat-body h3 { font-size: 20px; }
-  .social-hcard .hcat-img { flex: 1; min-height: 0; background: var(--cream-2); }
-  .social-hcard .hcat-img img { object-fit: cover !important; padding: 0; object-position: center top; }
-  .social-track .hcat-intro { flex: 0 0 200px; padding-right: 0; }
-  .social-track .hcat-intro h2 { font-size: clamp(28px, 6vw, 40px); }
-  .social-track .hcat-tail { flex: 0 0 180px; padding: 0; }
-  .hcat-tail-text { font-size: 22px; }
+  .social-hcat { padding: 72px 0; }
+  .social-hcat .hcat-intro { margin-bottom: 40px; }
+  .social-hcat .hcat-intro h2 { font-size: clamp(28px, 6vw, 40px); }
+  .social-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .social-hcard .hcat-body h3 { font-size: 18px; }
+  .social-hcard .hcat-body p { font-size: 12px; }
 }
 
 @media (max-width: 375px) {

@@ -50,11 +50,11 @@
 .ss-service-area::before {
   content: 'Our Services';
   position: absolute;
-  top: 96px;
+  top: clamp(92px, calc(6vh + 50px), 110px);
   left: 50%;
   transform: translateX(-50%);
   font-family: "Cinzel", serif;
-  font-size: 40px;
+  font-size: clamp(22px, 2.6vw, 40px);
   letter-spacing: 0.38em;
   text-transform: uppercase;
   color: rgb(82, 3, 3);
@@ -73,30 +73,31 @@
 }
 
 .ss-logo-center img {
-  width: 280px;
+  width: clamp(150px, 16vw, 280px);
   height: auto;
   filter: drop-shadow(0 4px 14px rgba(196, 21, 21, 0.22));
 }
 
-@media (max-width: 1200px) {
-  .ss-logo-center img { width: 220px; }
-}
-
 .ss-pair {
   position: absolute;
-  top: 58%;
+  top: 52%;
   left: 50%;
   display: flex;
-  gap: 28px;
+  gap: clamp(16px, 2vw, 28px);
   align-items: flex-start;
   z-index: 3;
 }
 
-.ss-card { width: 320px; flex-shrink: 0; }
+/* Short/laptop-height viewports: nudge cards down so they clear the heading */
+@media (max-height: 820px) {
+  .ss-pair { top: 64%; }
+}
+
+.ss-card { width: min(24vw, 42vh, 320px); flex-shrink: 0; }
 
 .ss-img-box {
-  width: 320px;
-  height: 425px;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   background: var(--cream-2);
   border-radius: 4px;
   display: flex;
@@ -117,25 +118,11 @@
 .ss-card-name {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 28px;
+  font-size: clamp(18px, 1.6vw, 28px);
   color: var(--ink);
   text-align: center;
-  margin-top: 18px;
+  margin-top: clamp(10px, 1.4vh, 18px);
   font-weight: 700;
-}
-
-@media (max-width: 1200px) {
-  .ss-card     { width: 270px; }
-  .ss-img-box  { width: 270px; height: 360px; }
-  .ss-card-name { font-size: 24px; }
-}
-
-@media (max-height: 820px) {
-  .ss-service-area::before { top: 100px; font-size: 32px; }
-  .ss-pair { top: 64%; }
-  .ss-card { width: 250px; }
-  .ss-img-box { width: 250px; height: 320px; }
-  .ss-card-name { font-size: 22px; margin-top: 12px; }
 }
 
 

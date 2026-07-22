@@ -40,7 +40,7 @@ export default function ServiceScroll() {
     let ctx
     const raf = requestAnimationFrame(() => {
       ctx = gsap.context(() => {
-        const spread = Math.min(vw * 19, 300)
+        const spread = Math.min(vw * 13, 210)
 
         gsap.set('.ss-pair',                   { xPercent: -50, yPercent: -50 })
         gsap.set(['.ss-pair-2', '.ss-pair-3'], { y: vh * 1.2 })

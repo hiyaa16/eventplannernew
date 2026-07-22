@@ -1719,6 +1719,7 @@ section { position: relative; }
 .footer-bottom a:hover { color: var(--bronze-2); }
 
 @media (max-width: 900px) {
+  .footer { padding-bottom: 100px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   .footer-mark { grid-column: 1 / -1; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }

@@ -1,14 +1,9 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import igimg from '../assets/insta.png'
 import fbimg from '../assets/fb.png'
 import ytimg from '../assets/yt.png'
 import inimg from '../assets/linkedin.png'
 import googleimg from '../assets/google.png'
 import pinimg from '../assets/pin.png'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const SOCIAL = [
   {
@@ -77,37 +72,14 @@ function SocialCard({ s, index }) {
   return (
     <a
       href={s.href}
-      className={'social-hcard ' + s.hue}
+      className={'social-hcard reveal ' + s.hue}
+      style={{ transitionDelay: (index % 3) * 0.08 + 's' }}
       target="_blank"
       rel="noopener noreferrer"
     >
       <div className="hcat-num">{String(index + 1).padStart(2, '0')}</div>
       <div className="hcat-img">
-        {s.embedSrc ? (
-          <iframe
-            src={s.embedSrc}
-            title={s.platform}
-            loading="lazy"
-            scrolling="no"
-            frameBorder="0"
-            allowTransparency="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            style={{
-              position: 'absolute', inset: 0,
-              width: '100%', height: '100%',
-              border: 'none',
-              pointerEvents: 'none',
-            }}
-          />
-        ) : s.img ? (
-          <img
-            src={s.img}
-            alt={s.platform}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-        ) : (
-          <div className="img-placeholder">{s.platform}</div>
-        )}
+        <img src={s.img} alt={s.platform} loading="lazy" />
       </div>
       <div className="hcat-body">
         <span className="hcat-sub">{s.subtitle}</span>
@@ -119,92 +91,23 @@ function SocialCard({ s, index }) {
 }
 
 export function SocialSection() {
-  const outerRef = useRef(null)   // tall scroll container
-  const innerRef = useRef(null)   // sticky 100vh section
-
-  useEffect(() => {
-    const outer = outerRef.current
-    const inner = innerRef.current
-    if (!outer || !inner) return
-
-    const track = inner.querySelector('.social-track')
-    if (!track) return
-
-    const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
-
-    // Outer height = horizontal travel distance + extra + one viewport to keep section visible
-    const setHeight = () => {
-      outer.style.height = (compute() + 200 + window.innerHeight) + 'px'
-    }
-    setHeight()
-
-    const raf = requestAnimationFrame(() => {
-      const tween = gsap.to(track, {
-        x: () => -compute(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: outer,               // tall outer drives the scrub
-          start: 'top top',
-          end: () => '+=' + (compute() + 200),
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      })
-
-      const cards = gsap.utils.toArray(inner.querySelectorAll('.social-hcard'))
-      const update = () => {
-        const center = window.innerWidth / 2
-        cards.forEach((card) => {
-          const r = card.getBoundingClientRect()
-          const cx = r.left + r.width / 2
-          const dist = Math.abs(cx - center)
-          const k = Math.max(0, 1 - dist / (window.innerWidth * 0.7))
-          card.style.transform = `scale(${0.86 + k * 0.14})`
-          card.style.opacity = String(0.55 + k * 0.45)
-        })
-      }
-      gsap.ticker.add(update)
-      update()
-
-      ScrollTrigger.refresh()
-
-      // Store cleanup refs on outer element for use in return
-      outer._cleanup = () => {
-        gsap.ticker.remove(update)
-        tween.scrollTrigger && tween.scrollTrigger.kill()
-        tween.kill()
-        outer.style.height = ''
-      }
-    })
-
-    return () => {
-      cancelAnimationFrame(raf)
-      outer._cleanup?.()
-    }
-  }, [])
-
   return (
-    // Tall outer container provides scroll space — no GSAP pin needed
-    <div ref={outerRef} className="social-hcat-outer">
-      <section ref={innerRef} className="social-hcat">
-        <div className="social-track">
-          <div className="hcat-intro">
-            <span className="eyebrow">Connect with us</span>
-            <h2 className="hcat-title">
-              Follow our<br/><span className="ital">journey.</span>
-            </h2>
-            <p>Find us across every platform — scroll to explore.</p>
-          </div>
+    <section className="social-hcat">
+      <div className="container">
+        <div className="hcat-intro reveal">
+          <span className="eyebrow">Connect with us</span>
+          <h2 className="hcat-title">
+            Follow our<br/><span className="ital">journey.</span>
+          </h2>
+          <p>Find us across every platform.</p>
+        </div>
 
+        <div className="social-grid">
           {SOCIAL.map((s, i) => (
             <SocialCard key={s.id} s={s} index={i} />
           ))}
-
-          <div className="hcat-tail">
-            <span className="eyebrow">Stay connected</span>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   )
 }
