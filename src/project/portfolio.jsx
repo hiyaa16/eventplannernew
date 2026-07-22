@@ -1,5 +1,6 @@
 import { Counter } from './components.jsx'
 
+// Portfolio with numbered images (1.jpg-6.jpg)
 export function Portfolio() {
   const cards = [
     { cls: 'p1', img: '1.jpg' },
