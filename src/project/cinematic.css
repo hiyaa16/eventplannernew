@@ -474,25 +474,29 @@
 }
 .hcat-tail .eyebrow { color: var(--cream); }
 
-/* Mobile: scale down card sizes and intro, keep scroll-jack animation */
+/* Mobile: same "many cards in a row" density as desktop — small fixed cards, sized by image aspect-ratio */
 @media (max-width: 900px) {
-  .social-hcard { flex: 0 0 210px; height: 42vh; height: 42dvh; }
-  .social-hcard .hcat-body { padding: 16px; }
-  .social-hcard .hcat-body h3 { font-size: 16px; }
-  .social-hcard .hcat-body p { font-size: 11px; }
-  .social-hcard .hcat-sub { font-size: 9px; }
-  .hcat-intro { flex: 0 0 200px; padding-right: 16px; }
-  .hcat-intro h2 { font-size: clamp(28px, 5vw, 40px); }
-  .hcat-intro p { font-size: 12px; }
-  .hcat-tail { flex: 0 0 180px; padding: 0 16px; }
-  .social-track { padding: 0 20px; gap: 14px; }
+  .social-hcard { flex: 0 0 130px; height: auto; }
+  .social-hcard .hcat-img { aspect-ratio: 4/5; }
+  .social-hcard .hcat-img img { padding: 6px; }
+  .social-hcard .hcat-body { padding: 10px; }
+  .social-hcard .hcat-body h3 { font-size: 14px; }
+  .social-hcard .hcat-body p { font-size: 10px; }
+  .social-hcard .hcat-sub { font-size: 8px; letter-spacing: 0.2em; }
+  .social-hcard .hcat-num { font-size: 11px; top: 8px; left: 8px; }
+  .hcat-intro { flex: 0 0 170px; padding-right: 12px; }
+  .hcat-intro h2 { font-size: clamp(24px, 6vw, 34px); margin: 16px 0 14px; }
+  .hcat-intro p { font-size: 11px; }
+  .hcat-tail { flex: 0 0 130px; padding: 0 12px; }
+  .social-track { padding: 0 16px; gap: 8px; }
 }
 
 @media (max-width: 375px) {
-  .social-hcard { flex: 0 0 190px; height: 40vh; height: 40dvh; }
-  .hcat-intro { flex: 0 0 170px; }
-  .hcat-intro h2 { font-size: clamp(22px, 4vw, 30px); }
-  .hcat-tail { flex: 0 0 160px; }
+  .social-hcard { flex: 0 0 110px; }
+  .social-hcard .hcat-body h3 { font-size: 12px; }
+  .hcat-intro { flex: 0 0 150px; }
+  .hcat-intro h2 { font-size: clamp(20px, 6vw, 26px); }
+  .hcat-tail { flex: 0 0 110px; }
 }
 
 .hcat-body {
