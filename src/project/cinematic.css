@@ -474,36 +474,23 @@
 }
 .hcat-tail .eyebrow { color: var(--cream); }
 
+/* Mobile: scale down card sizes and intro, keep scroll-jack animation */
 @media (max-width: 900px) {
-  .social-hcat-outer { height: auto !important; }
-  .social-hcat {
-    position: static;
-    height: auto;
-    padding: 60px 0;
-    overflow: visible;
-  }
-  .social-track {
-    padding: 0 20px;
-    gap: 16px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-  }
-  .social-track .social-hcard,
-  .social-track .hcat-intro,
-  .social-track .hcat-tail { scroll-snap-align: start; }
-  .social-hcard { flex: 0 0 300px; height: 64vh; height: 64dvh; opacity: 1 !important; transform: none !important; }
-  .social-hcard .hcat-body h3 { font-size: 20px; }
+  .social-hcard { flex: 0 0 280px; height: 60vh; height: 60dvh; }
+  .social-hcard .hcat-body h3 { font-size: 18px; }
   .social-hcard .hcat-body p { font-size: 12px; }
-  .hcat-intro { flex: 0 0 200px; padding-right: 0; }
-  .hcat-intro h2 { font-size: clamp(28px, 6vw, 40px); }
-  .hcat-tail { flex: 0 0 180px; padding: 0; }
+  .hcat-intro { flex: 0 0 220px; padding-right: 20px; }
+  .hcat-intro h2 { font-size: clamp(32px, 5vw, 48px); }
+  .hcat-intro p { font-size: 12px; }
+  .hcat-tail { flex: 0 0 220px; padding: 0 20px; }
+  .social-track { padding: 0 20px; gap: 16px; }
 }
 
 @media (max-width: 375px) {
-  .social-hcard { flex: 0 0 260px; height: 66vh; height: 66dvh; }
-  .social-hcard .hcat-body { padding: 16px; }
-  .social-hcard .hcat-body h3 { font-size: 18px; }
+  .social-hcard { flex: 0 0 240px; height: 58vh; height: 58dvh; }
+  .hcat-intro { flex: 0 0 180px; }
+  .hcat-intro h2 { font-size: clamp(24px, 4vw, 32px); }
+  .hcat-tail { flex: 0 0 180px; }
 }
 
 .hcat-body {

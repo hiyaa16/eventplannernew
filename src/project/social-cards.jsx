@@ -101,12 +101,12 @@ export function SocialSection() {
   useEffect(() => {
     const outer = outerRef.current
     const inner = innerRef.current
-    if (!outer || !inner || window.innerWidth <= 900) return
+    if (!outer || !inner) return
 
     const track = inner.querySelector('.social-track')
     if (!track) return
 
-    const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
+    const compute = () => Math.max(0, track.scrollWidth - window.innerWidth + 40)
 
     const setHeight = () => {
       outer.style.height = (compute() + 200 + window.innerHeight) + 'px'
