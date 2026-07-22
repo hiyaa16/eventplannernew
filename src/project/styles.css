@@ -940,7 +940,8 @@ section { position: relative; }
 }
 .services-head .right {
   max-width: 32ch;
-  text-align: right;
+  text-align: justify;
+  text-align-last: right;
 }
 
 .service-row {
