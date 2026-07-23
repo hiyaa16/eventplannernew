@@ -106,6 +106,26 @@ function App() {
     }
   }, [])
 
+  React.useEffect(() => {
+    const isMedia = (target) =>
+      target?.tagName === 'IMG' || target?.tagName === 'VIDEO'
+
+    const blockContextMenu = (e) => {
+      if (isMedia(e.target)) e.preventDefault()
+    }
+    const blockDragStart = (e) => {
+      if (isMedia(e.target)) e.preventDefault()
+    }
+
+    document.addEventListener('contextmenu', blockContextMenu)
+    document.addEventListener('dragstart', blockDragStart)
+
+    return () => {
+      document.removeEventListener('contextmenu', blockContextMenu)
+      document.removeEventListener('dragstart', blockDragStart)
+    }
+  }, [])
+
   return (
     <>
       {window.Nav && (

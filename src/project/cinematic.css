@@ -413,7 +413,7 @@
   align-items: center;
   height: 100%;
   padding: 0 clamp(16px, 4vw, 60px);
-  gap: clamp(16px, 2.6vw, 44px);
+  gap: clamp(28px, 2.6vw, 44px);
   will-change: transform;
 }
 
@@ -422,7 +422,7 @@
    at every size instead of separate mobile/desktop rules. */
 .social-hcard {
   flex: 0 0 auto;
-  width: clamp(150px, 22vw, 400px);
+  width: clamp(210px, 22vw, 400px);
   border-radius: 6px;
   overflow: hidden;
   display: flex;

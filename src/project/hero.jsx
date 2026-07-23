@@ -22,7 +22,16 @@ export function Hero() {
       <FogOverlay />
 
       <div className="hero-video-wrap">
-        <video ref={videoRef} autoPlay muted loop playsInline className="hero-video">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="hero-video"
+          controlsList="nodownload"
+          disablePictureInPicture
+        >
           <source src="https://eventplannerjodhpur.com/photos/video2.mp4" type="video/mp4" />
         </video>
       </div>
